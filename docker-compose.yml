@@ -1,0 +1,25 @@
+version: '3'
+services:
+  flag_service:
+    build:
+      context: ./flag_service
+    networks:
+      ctf_network:
+        ipv4_address: 172.18.0.2
+
+  vulnerable_webapp:
+    build:
+      context: ./web_app
+    networks:
+      ctf_network:
+        ipv4_address: 172.18.0.3
+    ports:
+      - "80:80"
+
+networks:
+  ctf_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/16
